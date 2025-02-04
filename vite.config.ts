@@ -16,6 +16,15 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.jpg', '**/*.png', '**/*.svg', '**/*.mp4'],
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+        }
+      }
+    }
   }
 }) 
