@@ -1,19 +1,19 @@
 <template>
-  <footer class="bg-gray-900 text-gray-400">
-    <div class="container mx-auto px-4 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+  <footer class="bg-gray-900 text-gray-400 py-2">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <!-- 左侧 Logo 和简介 -->
-        <div class="space-y-4">
-          <img src="@/assets/images/logo.png" alt="Logo" class="h-12" />
+        <div class="space-y-2">
+          <img src="@/assets/images/logo.png" alt="Logo" class="h-10" />
           <p class="text-sm">
-            凤翔泥塑，陕西省非物质文化遗产，千年工艺传承，匠心独运的艺术瑰宝。由咸阳职业技术学院"非泥莫属"团队倾情打造。
+            凤翔泥塑，陕西省非物质文化遗产，千年工艺传承，匠心独运的艺术瑰宝。该网站由咸阳职业技术学院信息工程学院"非泥莫属"团队倾情打造。
           </p>
         </div>
 
         <!-- 快速链接 -->
         <div>
-          <h3 class="text-white font-bold mb-4">快速链接</h3>
-          <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+          <h3 class="text-white font-bold mb-2">快速链接</h3>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-1">
             <li>
               <router-link to="/" class="hover:text-primary transition-colors">
                 首页
@@ -80,8 +80,8 @@
 
         <!-- 联系方式 -->
         <div>
-          <h3 class="text-white font-bold mb-4">联系我们</h3>
-          <ul class="space-y-2 text-sm">
+          <h3 class="text-white font-bold mb-2">联系我们</h3>
+          <ul class="space-y-1 text-sm">
             <li class="flex items-center gap-2">
               <el-icon><Location /></el-icon>
               陕西省咸阳市咸阳职业技术学院信息工程学院
@@ -99,8 +99,8 @@
 
         <!-- 团队信息 -->
         <div>
-          <h3 class="text-white font-bold mb-4">团队信息</h3>
-          <div class="space-y-4">
+          <h3 class="text-white font-bold mb-2">团队信息</h3>
+          <div class="space-y-2">
             <p class="text-sm">
               "非泥莫属"团队
               <br />
@@ -113,7 +113,7 @@
       </div>
 
       <!-- 底部版权信息 -->
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+      <div class="border-t border-gray-800 mt-2 pt-2 text-center text-sm">
         <p>
           © {{ new Date().getFullYear() }} 咸阳职业技术学院"非泥莫属"团队. All
           rights reserved.

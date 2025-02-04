@@ -24,29 +24,94 @@
         </div>
       </div>
     </div>
-    <div class="container mx-auto px-4 py-12">
-      <h1 class="text-3xl font-bold mb-8">文创产品</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="container mx-auto px-4 py-16">
+      <!-- 分类标签栏 -->
+      <div class="mb-12">
+        <el-tabs v-model="activeCategory" class="category-tabs">
+          <el-tab-pane
+            v-for="category in categories"
+            :key="category.id"
+            :label="category.name"
+            :name="category.id"
+          >
+            <!-- 分类描述 -->
+            <div class="text-center mb-8">
+              <p class="text-gray-600">{{ category.description }}</p>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+
+      <!-- 产品展示网格 -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      >
         <div
-          v-for="product in products"
+          v-for="product in currentProducts"
           :key="product.id"
-          class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
         >
-          <el-image
-            :src="product.image"
-            :alt="product.title"
-            class="w-full h-48 object-cover"
-            fit="cover"
-          />
-          <div class="p-4">
-            <h3 class="text-lg font-bold mb-2">{{ product.title }}</h3>
-            <p class="text-gray-600 text-sm mb-2">{{ product.description }}</p>
-            <div class="flex justify-between items-center">
-              <span class="text-primary font-bold">¥{{ product.price }}</span>
-              <el-button type="primary" size="small">购买</el-button>
+          <!-- 图片容器 -->
+          <div class="relative overflow-hidden aspect-square">
+            <div class="absolute inset-0 bg-gray-100 animate-pulse"></div>
+            <el-image
+              :src="product.image || '/placeholder.jpg'"
+              :alt="product.title"
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              fit="cover"
+            >
+              <template #placeholder>
+                <div class="flex items-center justify-center h-full">
+                  <el-icon class="text-3xl text-gray-300"><Picture /></el-icon>
+                </div>
+              </template>
+            </el-image>
+            <!-- 分类标签 -->
+            <div class="absolute top-4 left-4">
+              <el-tag :type="product.tagType" effect="light" class="text-sm">
+                {{ product.category }}
+              </el-tag>
+            </div>
+          </div>
+
+          <!-- 产品信息 -->
+          <div class="p-6 space-y-4">
+            <div>
+              <h3
+                class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
+              >
+                {{ product.title }}
+              </h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                {{ product.description }}
+              </p>
+            </div>
+
+            <!-- 产品特色标签 -->
+            <div class="pt-4 border-t border-gray-100">
+              <div class="flex flex-wrap gap-2">
+                <el-tag
+                  v-for="tag in product.tags"
+                  :key="tag"
+                  size="small"
+                  effect="plain"
+                  class="text-xs"
+                >
+                  {{ tag }}
+                </el-tag>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 敬请期待卡片 -->
+      <div
+        class="group bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 p-8 text-center"
+      >
+        <el-icon class="text-4xl text-gray-400 mb-4"><Plus /></el-icon>
+        <h3 class="text-xl font-bold text-gray-400 mb-2">更多产品</h3>
+        <p class="text-gray-500">敬请期待...</p>
       </div>
     </div>
     <TheFooter />
@@ -54,35 +119,98 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { Picture, Plus } from "@element-plus/icons-vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
 
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-}
+// 产品分类
+const categories = [
+  {
+    id: "daily",
+    name: "生活用品",
+    description: "让传统文化融入日常生活，体验非遗之美",
+  },
+  {
+    id: "ornament",
+    name: "文创饰品",
+    description: "独特的艺术设计，让传统工艺焕发新生",
+  },
+  {
+    id: "stationery",
+    name: "文具用品",
+    description: "精致实用的文创文具，让学习工作更有趣",
+  },
+  {
+    id: "gift",
+    name: "伴手礼品",
+    description: "富有文化底蕴的精美礼品，传递美好祝福",
+  },
+];
 
-const products: Product[] = [
+const activeCategory = ref("daily");
+
+// 示例产品数据
+const products = ref([
   {
     id: 1,
-    title: "泥塑摆件",
-    description: "现代风格的装饰摆件",
-    price: 299,
-    image: new URL("@/assets/images/文创产品/cultural-1.jpg", import.meta.url)
-      .href,
+    title: "泥塑笔筒",
+    description:
+      "传统工艺与现代办公的完美结合，让您的办公桌充满文化气息，每件作品都由非遗传承人手工制作",
+    category: "文具用品",
+    tagType: "success",
+    tags: ["手工制作", "实用设计", "传统工艺", "文化创新"],
+    image: "", // 暂时为空
   },
   {
     id: 2,
-    title: "创意花瓶",
-    description: "传统工艺与现代设计的结合",
-    price: 399,
-    image: new URL("@/assets/images/文创产品/cultural-2.jpg", import.meta.url)
-      .href,
+    title: "十二生肖挂饰",
+    description:
+      "精美的十二生肖泥塑挂件，融合传统造型与现代美学，每个生肖都蕴含着独特的文化寓意",
+    category: "文创饰品",
+    tagType: "warning",
+    tags: ["非遗技艺", "文化传承", "艺术收藏", "传统文化"],
+    image: "", // 暂时为空
   },
-];
+  // 添加更多示例产品
+  {
+    id: 3,
+    title: "茶宠摆件",
+    description:
+      "将传统泥塑艺术与茶文化完美结合，为您的茶席增添文化气息，让品茶更具仪式感",
+    category: "生活用品",
+    tagType: "primary",
+    tags: ["茶文化", "艺术摆件", "传统工艺", "生活美学"],
+    image: "", // 暂时为空
+  },
+  {
+    id: 4,
+    title: "文创书签",
+    description:
+      "以凤翔泥塑元素为灵感，设计独特的书签系列，让阅读充满传统文化的韵味",
+    category: "文具用品",
+    tagType: "info",
+    tags: ["创意设计", "文化元素", "实用文具", "艺术收藏"],
+    image: "", // 暂时为空
+  },
+]);
+
+// 根据当前分类筛选产品
+const currentProducts = computed(() => {
+  return products.value.filter((product) => {
+    switch (activeCategory.value) {
+      case "daily":
+        return product.category === "生活用品";
+      case "ornament":
+        return product.category === "文创饰品";
+      case "stationery":
+        return product.category === "文具用品";
+      case "gift":
+        return product.category === "伴手礼品";
+      default:
+        return true;
+    }
+  });
+});
 
 // 添加banner背景图片
 const bannerBg = new URL(
@@ -90,3 +218,36 @@ const bannerBg = new URL(
   import.meta.url
 ).href;
 </script>
+
+<style scoped>
+/* 添加图片悬停效果 */
+.el-image {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 优化按钮样式 */
+:deep(.el-button) {
+  border-radius: 8px;
+}
+
+/* 标签样式优化 */
+:deep(.el-tag) {
+  border: none;
+}
+
+/* 分类标签栏样式 */
+:deep(.category-tabs .el-tabs__nav) {
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+:deep(.category-tabs .el-tabs__item) {
+  font-size: 1.1rem;
+  padding: 0 2rem;
+}
+
+:deep(.category-tabs .el-tabs__active-bar) {
+  background-color: var(--el-color-primary);
+}
+</style>
