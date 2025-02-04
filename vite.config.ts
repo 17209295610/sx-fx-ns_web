@@ -16,12 +16,6 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.jpg', '**/*.png', '**/*.svg', '**/*.mp4'],
   build: {
-    assetsInlineLimit: 0,
-    outDir: 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
+    outDir: 'dist'
   }
 }) 
