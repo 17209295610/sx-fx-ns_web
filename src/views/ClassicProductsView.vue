@@ -155,9 +155,6 @@
       :hide-on-click-modal="true"
       @close="showImageViewer = false"
     />
-
-    <!-- 添加页脚 -->
-    <TheFooter />
   </div>
 </template>
 
@@ -172,7 +169,6 @@ import {
 } from "@element-plus/icons-vue";
 import type { ImageViewerProps } from "element-plus";
 import { ElImageViewer } from "element-plus";
-import TheFooter from "@/components/layout/TheFooter.vue";
 import { Breadcrumb } from "@/components/common";
 
 // 导入图片

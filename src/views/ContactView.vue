@@ -34,8 +34,16 @@
               我们运用新媒体技术和互联网平台，让凤翔泥塑这一非物质文化遗产焕发新的生机。
             </p>
             <div class="text-center text-sm text-gray-500 mt-4">
-              <p>指导老师：XXX</p>
-              <p>团队成员：XXX、XXX、XXX、XXX</p>
+              <p>指导老师：邵秀秀、李丹</p>
+              <p>
+                团队成员： 程文卓 信息安全技术应用2301班 |
+                呼思彤信息安全技术应用2301班 | 杜悦萌 信息安全技术应用2301班 |
+                高嘉琪 信息安全技术应用2302班 | 段婧雯 信息安全技术应用2302班 |
+                冯佳乐 信息安全技术应用2302班 | 童毓馨 电子信息工程技术2301班 |
+                刘旭东 软件工程技术 2301班 | 樊嘉瑞 软件工程技术 2302班 | 芦梦
+                数字媒体艺术设计 2407班 | 王玉数字媒体艺术设计 2102班| 朱航
+                凤翔泥塑传承人 |
+              </p>
             </div>
           </div>
         </div>
@@ -111,8 +119,6 @@
         </div>
       </div>
     </div>
-
-    <TheFooter />
   </div>
 </template>
 
@@ -129,7 +135,6 @@ import {
   Promotion,
   Platform,
 } from "@element-plus/icons-vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 import Breadcrumb from "@/components/layout/Breadcrumb.vue";
 
 // 项目特点

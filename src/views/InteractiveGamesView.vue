@@ -311,7 +311,6 @@
         </el-result>
       </div>
     </el-dialog>
-    <TheFooter />
   </div>
 </template>
 
@@ -329,7 +328,6 @@ import {
   Bell,
   CloseBell,
 } from "@element-plus/icons-vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 // 添加游戏状态类型

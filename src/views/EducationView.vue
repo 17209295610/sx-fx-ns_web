@@ -150,14 +150,11 @@
     <div class="resources-section py-16 bg-gray-50">
       <!-- ... -->
     </div>
-
-    <TheFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 import { VideoPlay, Film, ArrowDown } from "@element-plus/icons-vue";
 
 // 添加banner背景图片

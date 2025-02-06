@@ -21,7 +21,6 @@
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.11.16",
     "@types/nprogress": "^0.2.3",
-    "@types/element-plus": "^0.0.0",
     "@vitejs/plugin-vue": "^4.5.2",
     "autoprefixer": "^10.4.17",
     "axios": "^1.7.9",

@@ -32,7 +32,7 @@
     "types": [
       "vite/client",
       "nprogress",
-      "vue"
+      "@vue/runtime-core"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],

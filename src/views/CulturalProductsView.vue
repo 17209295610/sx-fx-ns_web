@@ -147,14 +147,12 @@
         <p class="text-gray-500">敬请期待...</p>
       </div>
     </div>
-    <TheFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { Picture, Plus } from "@element-plus/icons-vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 
 // 导入图片
 import cup1 from "../assets/images/文创产品/杯具1.jpg";

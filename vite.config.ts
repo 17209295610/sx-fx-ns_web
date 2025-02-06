@@ -17,7 +17,10 @@ export default defineConfig({
   optimizeDeps: {
     include: ['vue', 'vue-router', '@vueuse/core']
   },
+  base: '/',
   build: {
-    assetsInlineLimit: 0
+    outDir: 'dist',
+    assetsDir: 'assets',
+    assetsInlineLimit: 4096
   }
 }) 

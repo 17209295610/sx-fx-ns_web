@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp } from '@vue/runtime-dom'
 import type { Component } from 'vue'
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'

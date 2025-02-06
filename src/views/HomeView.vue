@@ -165,7 +165,6 @@
         </div>
       </div>
     </div>
-    <TheFooter />
   </div>
 </template>
 
@@ -177,7 +176,6 @@ import {
   ArrowRight,
 } from "@element-plus/icons-vue";
 import { ref, onMounted, onUnmounted } from "vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 // 直接导入图片
 import img1 from "../assets/images/Anime_image/祥泥仔1.jpg";
 import img2 from "../assets/images/Anime_image/祥泥仔2.jpg";

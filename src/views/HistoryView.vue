@@ -720,7 +720,6 @@
         </div>
       </div>
     </div>
-    <TheFooter />
     <BackToTop />
   </div>
 </template>
@@ -747,7 +746,6 @@ import {
   Brush,
   PictureFilled,
 } from "@element-plus/icons-vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 import BackToTop from "@/components/common/BackToTop.vue";
 import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
