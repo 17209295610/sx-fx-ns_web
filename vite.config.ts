@@ -17,7 +17,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['vue', 'vue-router', '@vueuse/core']
   },
-  base: '/fengxiang-nisu-web/',
+  base: '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
