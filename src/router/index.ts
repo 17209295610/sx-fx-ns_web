@@ -93,7 +93,7 @@ const router = createRouter({
    * 使用 HTML5 的 History 路由模式
    * 可以让 URL 更加美观，不带 # 号
    */
-  history: createWebHistory(import.meta.env.VITE_BASE_URL || '/'),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   /**
    * 控制页面滚动行为
