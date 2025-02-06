@@ -8,6 +8,8 @@ import App from './App.vue'
 import { setupPlugins } from './plugins'
 import { validateEnv } from './utils/env'
 import './utils/errorBoundary'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 // 导入样式 - 调整顺序，先导入 Tailwind，再导入 Element Plus
 import '@/assets/main.css'

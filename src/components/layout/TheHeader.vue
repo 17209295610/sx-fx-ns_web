@@ -14,7 +14,7 @@
             <!-- Logo 放大到 20 -->
             <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg">
               <img
-                src="../../assets/images/logo.png"
+                :src="logoPath"
                 alt="凤翔泥塑"
                 class="w-full h-full object-cover transform hover:scale-105 transition-all duration-300"
               />
@@ -355,6 +355,8 @@ onUnmounted(() => {
 const handleCommand = (command: string) => {
   router.push(command);
 };
+
+const logoPath = new URL("../assets/images/logo.png", import.meta.url).href;
 </script>
 
 <style scoped>

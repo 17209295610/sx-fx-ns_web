@@ -17,7 +17,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['vue', 'vue-router', '@vueuse/core']
   },
-  base: './',
+  base: process.env.NODE_ENV === 'production' ? '/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
