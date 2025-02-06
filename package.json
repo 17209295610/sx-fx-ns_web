@@ -22,6 +22,7 @@
     "@types/node": "^20.11.16",
     "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^4.5.2",
+    "@vue/runtime-dom": "^3.5.13",
     "autoprefixer": "^10.4.17",
     "axios": "^1.7.9",
     "mitt": "^3.0.1",
