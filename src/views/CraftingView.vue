@@ -321,6 +321,7 @@ import {
   Star,
 } from "@element-plus/icons-vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import Breadcrumb from "@/components/layout/Breadcrumb.vue";
 
 // 添加banner背景图片
 const bannerBg = new URL(

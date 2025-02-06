@@ -22,6 +22,9 @@
       </div>
     </div>
 
+    <!-- 页面导航面包屑 -->
+    <Breadcrumb />
+
     <!-- 泥塑起源 -->
     <div id="origin" class="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div class="container mx-auto px-4">
@@ -172,135 +175,145 @@
         </div>
 
         <!-- 时间线内容 -->
-        <el-timeline>
-          <el-timeline-item
-            v-for="(stage, index) in developmentStages"
-            :key="index"
-            :type="stage.type"
-            size="large"
-            :hollow="true"
-          >
-            <el-card
-              class="mb-8 hover:shadow-lg transition-shadow duration-300"
+        <div class="timeline relative">
+          <div class="space-y-16">
+            <div
+              v-for="(stage, index) in developmentStages"
+              :key="stage.period"
+              class="timeline-item flex"
+              :class="[
+                index % 2 === 0 ? 'flex-row' : 'flex-row-reverse',
+                'items-center',
+              ]"
             >
-              <template #header>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <el-icon class="text-2xl text-primary"
+              <!-- 图片部分 -->
+              <div class="w-1/2 px-4 hidden md:block">
+                <div class="relative overflow-hidden rounded-lg shadow-lg">
+                  <!-- 添加装饰图标 -->
+                  <div
+                    class="absolute top-4 right-4 bg-white/10 backdrop-blur-sm rounded-full p-2"
+                  >
+                    <el-icon class="text-2xl text-white"
                       ><component :is="stage.icon"
                     /></el-icon>
-                    <div>
-                      <h3 class="text-xl font-bold">{{ stage.title }}</h3>
-                      <p class="text-sm text-gray-500">{{ stage.period }}</p>
-                    </div>
                   </div>
-                  <el-tag :type="stage.type" effect="dark" round>{{
-                    stage.period
-                  }}</el-tag>
-                </div>
-              </template>
-
-              <div class="flex flex-col lg:flex-row gap-6">
-                <!-- 图片展示 -->
-                <div class="lg:w-2/5">
                   <el-image
                     :src="stage.image"
-                    fit="contain"
-                    :preview-src-list="[stage.image]"
-                    class="w-full rounded-lg shadow-md bg-gray-50"
-                    style="aspect-ratio: 4/3"
-                  >
-                    <template #placeholder>
-                      <div class="flex items-center justify-center h-full">
-                        <el-icon class="text-3xl text-gray-300 animate-spin"
-                          ><Loading
-                        /></el-icon>
-                      </div>
-                    </template>
-                    <template #error>
-                      <div class="flex items-center justify-center h-full">
-                        <el-icon class="text-3xl text-gray-300"
-                          ><Picture
-                        /></el-icon>
-                      </div>
-                    </template>
-                  </el-image>
-                </div>
-
-                <!-- 内容介绍 -->
-                <div class="lg:w-3/5 space-y-4">
-                  <!-- 概述 -->
-                  <div class="prose">
-                    <p class="text-gray-600 leading-relaxed">
-                      {{ stage.content }}
-                    </p>
-                  </div>
-
-                  <!-- 特点列表 -->
-                  <div class="space-y-3">
-                    <h4
-                      class="font-semibold text-primary flex items-center gap-2"
-                    >
-                      <el-icon><Star /></el-icon>
-                      时期特点
+                    class="w-full aspect-[4/5] object-cover object-center transform hover:scale-110 transition-all duration-500"
+                    fit="cover"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                  ></div>
+                  <!-- 添加年代标记 -->
+                  <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="text-xl font-bold flex items-center gap-2">
+                      <el-icon><Calendar /></el-icon>
+                      {{ stage.period }}
                     </h4>
-                    <el-row :gutter="12">
-                      <el-col
-                        :span="12"
-                        v-for="(feature, idx) in stage.features"
-                        :key="idx"
-                      >
-                        <div
-                          class="bg-gray-50 p-3 rounded-lg mb-3 hover:bg-gray-100 transition-colors"
-                        >
-                          <div class="flex items-start gap-2">
-                            <el-icon class="text-primary mt-1"
-                              ><Check
-                            /></el-icon>
-                            <span class="text-gray-600 text-sm">{{
-                              feature
-                            }}</span>
-                          </div>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-
-                  <!-- 重要事件 -->
-                  <div class="space-y-3">
-                    <h4
-                      class="font-semibold text-primary flex items-center gap-2"
-                    >
-                      <el-icon><Timer /></el-icon>
-                      重要事件
-                    </h4>
-                    <el-collapse accordion>
-                      <el-collapse-item
-                        v-for="(event, idx) in stage.events"
-                        :key="idx"
-                        :title="event"
-                      >
-                        <div class="text-gray-600 text-sm p-2">
-                          {{ stage.eventDetails?.[idx] || "暂无详细信息" }}
-                        </div>
-                      </el-collapse-item>
-                    </el-collapse>
-                  </div>
-
-                  <!-- 补充说明 -->
-                  <div v-if="stage.additional" class="mt-4">
-                    <el-alert
-                      :title="stage.additional"
-                      type="info"
-                      :closable="false"
-                      class="bg-primary/5"
-                    />
+                    <p class="text-sm mt-1 text-white/80">{{ stage.title }}</p>
                   </div>
                 </div>
               </div>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
+
+              <!-- 内容部分 -->
+              <div
+                class="w-full md:w-1/2 px-4 bg-white rounded-lg shadow-lg p-6 relative flex flex-col justify-between h-full"
+                v-motion
+                :initial="{ opacity: 0, y: 50 }"
+                :enter="{ opacity: 1, y: 0 }"
+                :delay="index * 200"
+              >
+                <!-- 添加装饰边框 -->
+                <div
+                  class="absolute -inset-[2px] bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-lg -z-10"
+                ></div>
+
+                <div class="text-lg font-bold text-primary mb-2">
+                  <el-tag :type="stage.type" effect="plain" class="mr-2">{{
+                    stage.period
+                  }}</el-tag>
+                  {{ stage.title }}
+                </div>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                  <template
+                    v-for="(part, idx) in stage.content.split('。')"
+                    :key="idx"
+                  >
+                    <span v-if="part">
+                      {{ part
+                      }}<span v-if="idx < stage.content.split('。').length - 2"
+                        >。</span
+                      >
+                    </span>
+                  </template>
+                </p>
+
+                <!-- 详情部分 -->
+                <el-collapse>
+                  <el-collapse-item>
+                    <template #title>
+                      <span
+                        class="text-primary font-medium flex items-center gap-2"
+                      >
+                        <el-icon><Document /></el-icon>
+                        查看详情
+                      </span>
+                    </template>
+                    <div class="features">
+                      <h4 class="font-bold mb-2 flex items-center gap-2">
+                        <el-icon class="text-primary"><Star /></el-icon>
+                        特点：
+                      </h4>
+                      <ul class="space-y-2">
+                        <li
+                          v-for="feature in stage.features"
+                          :key="feature"
+                          class="flex items-start gap-2"
+                        >
+                          <el-icon class="text-primary mt-1"><Check /></el-icon>
+                          {{ feature }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="events">
+                      <h4 class="font-bold mt-4 mb-2 flex items-center gap-2">
+                        <el-icon class="text-primary"><Timer /></el-icon>
+                        重要事件：
+                      </h4>
+                      <ul class="space-y-2">
+                        <li
+                          v-for="event in stage.events"
+                          :key="event"
+                          class="flex items-start gap-2 hover:bg-primary/5 p-2 rounded-lg transition-colors"
+                        >
+                          <el-icon class="text-primary mt-1"><Timer /></el-icon>
+                          {{ event }}
+                        </li>
+                      </ul>
+                      <div
+                        class="mt-4 pt-4 border-t border-gray-100 bg-gray-50 p-4 rounded-lg"
+                      >
+                        <p
+                          class="text-sm text-gray-500 italic hover:text-primary transition-colors"
+                          v-for="detail in stage.eventDetails"
+                          :key="detail"
+                        >
+                          {{ detail }}
+                        </p>
+                      </div>
+                    </div>
+                  </el-collapse-item>
+                </el-collapse>
+
+                <!-- 添加底部装饰 -->
+                <div
+                  class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -472,28 +485,70 @@
               ></div>
               <div class="absolute bottom-4 left-4 text-white">
                 <h3 class="text-2xl font-bold">胡深</h3>
-                <p class="text-sm text-white/80">国家级非遗传承人</p>
+                <p class="text-sm text-white/80">
+                  <span class="bg-primary/80 px-2 py-0.5 rounded"
+                    >国家级非遗传承人</span
+                  >
+                </p>
               </div>
             </div>
             <div class="p-6 space-y-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-primary font-bold">从艺年限：</span>
+                <span class="text-gray-700">70余年</span>
+              </div>
               <p class="text-gray-600">
-                从艺七十多年，被誉为"中国泥塑第一村"六营村中最有名气的泥塑老艺人。1995年被联合国教科文组织授予"民间工艺美术大师"称号。
+                被誉为<span class="text-primary font-medium"
+                  >"中国泥塑第一村"</span
+                >六营村中最有名气的泥塑老艺人。
+                <span class="text-primary/90"
+                  >1995年被联合国教科文组织授予"民间工艺美术大师"称号</span
+                >， 是凤翔泥塑艺术的杰出代表。其作品<span
+                  class="text-primary/90"
+                  >多次被选为国家生肖邮票主图案</span
+                >， 充分展现了凤翔泥塑的艺术魅力。
               </p>
               <el-divider content-position="left">主要成就</el-divider>
               <ul class="space-y-2 text-sm text-gray-600">
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Trophy /></el-icon>
-                  <span>作品被选为2002年、2003年国家生肖邮票主图案</span>
+                  <span
+                    >作品<span class="text-primary font-medium">连续两年</span
+                    >被选为国家生肖邮票主图案（2002-2003年）</span
+                  >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Medal /></el-icon>
-                  <span>2005年被中国艺术研究院聘为"民间艺术创作研究员"</span>
+                  <span
+                    >2005年被<span class="text-primary font-medium"
+                      >中国艺术研究院</span
+                    >聘为"民间艺术创作研究员"</span
+                  >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Star /></el-icon>
-                  <span>作品被中国国家博物馆及中国农业博物馆收藏</span>
+                  <span
+                    >作品被<span class="text-primary font-medium"
+                      >中国国家博物馆</span
+                    >及<span class="text-primary font-medium"
+                      >中国农业博物馆</span
+                    >永久收藏</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <el-icon class="text-primary mt-1"><Present /></el-icon>
+                  <span
+                    >荣获<span class="text-primary font-medium"
+                      >中国民间工艺美术最高奖"山花奖"</span
+                    ></span
+                  >
                 </li>
               </ul>
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500 italic">
+                  "泥塑艺术是我的生命，传承创新是我的责任。" —— 胡深
+                </p>
+              </div>
             </div>
           </el-card>
 
@@ -513,30 +568,67 @@
               ></div>
               <div class="absolute bottom-4 left-4 text-white">
                 <h3 class="text-2xl font-bold">胡小红</h3>
-                <p class="text-sm text-white/80">省级非遗传承人</p>
+                <p class="text-sm text-white/80">
+                  <span class="bg-warning/80 px-2 py-0.5 rounded"
+                    >省级非遗传承人</span
+                  >
+                </p>
               </div>
             </div>
             <div class="p-6 space-y-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-warning font-bold">从艺年限：</span>
+                <span class="text-gray-700">30余年</span>
+              </div>
               <p class="text-gray-600">
-                出身于泥塑世家，自幼跟随父亲胡深学习泥塑技艺。致力于凤翔泥塑的传承与创新。
+                出身于<span class="text-primary font-medium">泥塑世家</span
+                >，自幼跟随父亲胡深学习泥塑技艺。
+                <span class="text-primary/90">致力于传统工艺的创新发展</span>，
+                将现代设计理念与传统技艺相结合，开创了<span
+                  class="text-primary font-medium"
+                  >新时代凤翔泥塑</span
+                >的发展方向。
               </p>
               <el-divider content-position="left">主要成就</el-divider>
               <ul class="space-y-2 text-sm text-gray-600">
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Trophy /></el-icon>
-                  <span>陕西省工艺美术大师</span>
+                  <span
+                    >荣获<span class="text-primary font-medium"
+                      >陕西省工艺美术大师</span
+                    >称号</span
+                  >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Medal /></el-icon>
                   <span
-                    >创立凤翔县胡深世家泥塑专业合作社，带动20余户农户参与生产</span
+                    >创立<span class="text-primary font-medium"
+                      >凤翔县胡深世家泥塑专业合作社</span
+                    >，带动20余户农户参与生产，促进产业发展</span
                   >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Star /></el-icon>
-                  <span>获评"首批省级非遗工坊"称号</span>
+                  <span
+                    >工作室获评<span class="text-primary font-medium"
+                      >"首批省级非遗工坊"</span
+                    >称号</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <el-icon class="text-primary mt-1"><Present /></el-icon>
+                  <span
+                    >多次参与<span class="text-primary font-medium"
+                      >国际文化交流活动</span
+                    >，促进凤翔泥塑走向世界</span
+                  >
                 </li>
               </ul>
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500 italic">
+                  "创新是传统文化发展的动力，让古老技艺焕发新生。" —— 胡小红
+                </p>
+              </div>
             </div>
           </el-card>
 
@@ -556,34 +648,80 @@
               ></div>
               <div class="absolute bottom-4 left-4 text-white">
                 <h3 class="text-2xl font-bold">韩建斌</h3>
-                <p class="text-sm text-white/80">新一代传承人</p>
+                <p class="text-sm text-white/80">
+                  <span class="bg-success/80 px-2 py-0.5 rounded"
+                    >新一代传承人</span
+                  >
+                </p>
               </div>
             </div>
             <div class="p-6 space-y-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-success font-bold">从艺年限：</span>
+                <span class="text-gray-700">15余年</span>
+              </div>
               <p class="text-gray-600">
-                胡深外孙，凤翔泥塑第六代传人。形成了夸张憨萌的个人艺术风格。
+                作为<span class="text-primary font-medium"
+                  >凤翔泥塑第六代传人</span
+                >， 继承了祖辈的精湛技艺，同时开创了<span
+                  class="text-primary font-medium"
+                  >夸张憨萌</span
+                >的个人艺术风格。 致力于<span class="text-primary/90"
+                  >泥塑艺术的教育推广</span
+                >，让更多年轻人了解和热爱这门传统技艺。
               </p>
               <el-divider content-position="left">主要成就</el-divider>
               <ul class="space-y-2 text-sm text-gray-600">
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Trophy /></el-icon>
-                  <span>陕西省工艺美术大师，获国家级奖项57项</span>
+                  <span
+                    >荣获<span class="text-primary font-medium"
+                      >陕西省工艺美术大师</span
+                    >称号，斩获<span class="text-primary font-medium"
+                      >57项国家级奖项</span
+                    ></span
+                  >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Medal /></el-icon>
-                  <span>推动"凤翔泥塑走进校园"项目，入选十佳优秀案例</span>
+                  <span
+                    >发起<span class="text-primary font-medium"
+                      >"凤翔泥塑走进校园"</span
+                    >项目，入选文化和旅游部<span
+                      class="text-primary font-medium"
+                      >非遗传承人群研培计划十佳优秀案例</span
+                    ></span
+                  >
                 </li>
                 <li class="flex items-start gap-2">
                   <el-icon class="text-primary mt-1"><Star /></el-icon>
-                  <span>作品被国家一级博物馆收藏</span>
+                  <span
+                    >创新作品<span class="text-primary font-medium"
+                      >《欢乐童年》系列</span
+                    >被多家国家一级博物馆收藏</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <el-icon class="text-primary mt-1"><Present /></el-icon>
+                  <span
+                    >开设<span class="text-primary font-medium"
+                      >泥塑艺术工作室</span
+                    >，培养新一代传承人才</span
+                  >
                 </li>
               </ul>
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500 italic">
+                  "让传统艺术走进现代生活，让年轻人爱上泥塑文化。" —— 韩建斌
+                </p>
+              </div>
             </div>
           </el-card>
         </div>
       </div>
     </div>
     <TheFooter />
+    <BackToTop />
   </div>
 </template>
 
@@ -610,6 +748,8 @@ import {
   PictureFilled,
 } from "@element-plus/icons-vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import BackToTop from "@/components/common/BackToTop.vue";
+import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 interface DevelopmentStage {
   period: string;
@@ -685,72 +825,110 @@ import xiandai from "@/assets/images/Historical_photo/xiandai.jpg";
 const developmentStages = ref<DevelopmentStage[]>([
   {
     period: "先秦时期",
-    title: "最早起源",
-    content: `凤翔泥塑的历史可以追溯到先秦时期，植根于先秦文化沃土。这一时期的泥塑作品主要用于祭祀和生活装饰，体现了早期艺术的朴素特征。考古发现表明，当时的工匠们已经掌握了基本的制陶和泥塑技术，为后世凤翔泥塑的发展奠定了基础。`,
+    title: "泥塑艺术萌芽",
+    content: `凤翔泥塑的起源可以追溯到先秦时期，最早出现于民间祭祀活动。这一时期的泥塑作品主要用于祭祀和装饰，体现了先民们朴素的艺术追求和宗教信仰。`,
     type: "primary",
-    icon: "Collection",
+    icon: Calendar,
     image: xianqin,
     features: [
-      "以实用性和祭祀功能为主，体现先民生活智慧",
-      "造型朴素自然，展现原始审美特征",
-      "工艺技法以手工捏制为主，注重实用性",
-      "题材多以生活器物和祭祀用品为主",
+      "以祭祀用途为主",
+      "融合巫术文化元素",
+      "造型朴素自然",
+      "体现先民审美",
+      "具有地域特色",
     ],
     events: [
-      "出土大量陶俑和泥塑器物，证实早期泥塑艺术的存在",
-      "发现多处先秦时期制陶作坊遗址，展示制作工艺的发展",
-      "形成初步的制作工艺体系，为后世发展打下基础",
+      "出土大量陶俑和泥塑器物",
+      "发现earliest凤翔泥塑遗址",
+      "形成独特的制作工艺",
+      "与周秦文化深度融合",
     ],
-    additional:
-      "这一时期的泥塑作品虽然形态简单，但已经展现出独特的艺术魅力，是研究先秦时期民间艺术的重要实物资料。",
+    eventDetails: [
+      "考古发现表明，早在春秋战国时期，凤翔地区就有了成熟的制陶工艺",
+      "出土文物中包含大量具有地方特色的泥塑作品",
+      "泥塑艺术与当地民俗文化紧密相连",
+    ],
   },
   {
     period: "明清时期",
-    title: "艺术繁荣",
-    content:
-      "明清时期是凤翔泥塑发展的黄金时期，形成了独特的艺术风格和完整的制作工艺。泥塑作品造型夸张简拙，乡土气息浓郁，完美展现了民间艺术的独特魅力。这一时期的作品题材丰富，技艺精湛，影响深远。",
+    title: "技艺成熟发展",
+    content: `明清时期是凤翔泥塑的重要发展阶段，这一时期形成了独特的"凤翔泥塑"艺术风格。工艺技法不断创新，题材更加丰富多样，成为陕西民间艺术的重要代表。`,
     type: "success",
-    icon: "Present",
+    icon: Present,
     image: mingqing,
     features: [
-      "形成独特的艺术风格体系",
-      "制作工艺趋于成熟完善",
-      "题材内容更加丰富多样",
+      "工艺技法精进",
+      "形成独特风格",
+      "题材广泛多样",
+      "色彩运用成熟",
+      "市场需求扩大",
     ],
     events: [
-      "形成完整的传统制作工艺",
-      "出现专业的泥塑艺人群体",
-      "建立起独特的艺术风格",
+      "六营村泥塑作坊兴起",
+      "形成完整的传承体系",
+      "创作技法不断革新",
+      "市场规模持续扩大",
+    ],
+    eventDetails: [
+      "六营村成为凤翔泥塑的重要产地，形成了独特的'六营派'艺术风格",
+      "传统工艺与时代特色相结合，创新表现手法",
+      "泥塑作品在民间广受欢迎，成为重要的民间艺术品",
     ],
   },
   {
     period: "20世纪",
-    title: "产业发展",
-    content:
-      "二十世纪，特别是七八十年代开始，凤翔泥塑走向产业化经营道路。六营村成为主要生产地，年销售量达到数十万件。这一时期的发展为凤翔泥塑的传承和创新奠定了坚实基础，推动了传统工艺与现代市场的结合。",
+    title: "创新与发展",
+    content: `20世纪是凤翔泥塑的创新发展时期。在保持传统特色的基础上，积极吸收现代艺术元素，
+    不断拓展创作题材和表现手法。这一时期涌现出一批杰出的泥塑艺人，为艺术传承做出重要贡献。`,
     type: "warning",
-    icon: "Promotion",
+    icon: Promotion,
     image: ershi,
-    features: ["规模化生产模式形成", "产品种类不断丰富", "销售网络逐步扩大"],
+    features: [
+      "传统与现代融合",
+      "艺术创新突破",
+      "名家辈出创作",
+      "题材更加丰富",
+      "工艺持续改进",
+    ],
     events: [
-      "六营村成为泥塑生产中心",
-      "传统工艺得到规范化传承",
-      "产品销售范围不断扩大",
+      "成立泥塑艺术研究所",
+      "举办首届泥塑艺术展",
+      "获得多项国家级奖项",
+      "建立专业培训体系",
+    ],
+    eventDetails: [
+      "1956年成立凤翔泥塑研究所，系统整理传统工艺",
+      "多位艺术家获得国家级荣誉称号",
+      "作品多次入选国家重要展览，获得广泛认可",
     ],
   },
   {
-    period: "现代",
-    title: "创新传承",
-    content:
-      "在新时代背景下，凤翔泥塑在保持传统特色的同时不断创新，融入现代生活元素，焕发出新的生命力。通过技艺传承和艺术创新，凤翔泥塑展现出更强的生命力，成为非物质文化遗产保护的典范。",
+    period: "现代发展",
+    title: "传承与创新",
+    content: `新时代的凤翔泥塑走上了传承创新之路。通过数字技术应用、文创产品开发、
+    教育推广等多种方式，让传统工艺焕发新的生机。同时，积极探索产业化发展道路，
+    推动非遗文化的保护与传承。`,
     type: "info",
-    icon: "Clock",
+    icon: Present,
     image: xiandai,
-    features: ["传统与现代元素融合", "创新设计理念引入", "文化价值得到提升"],
+    features: [
+      "数字技术应用",
+      "文创产品开发",
+      "教育基地建设",
+      "产业化发展",
+      "国际文化交流",
+    ],
     events: [
-      "入选国家级非物质文化遗产名录",
-      "建立完善的传承保护体系",
-      "开展多样化的文化传播活动",
+      "入选国家级非遗名录",
+      "建立数字化展馆",
+      "开发系列文创产品",
+      "成立传承人培训基地",
+    ],
+    eventDetails: [
+      "2008年入选第二批国家级非物质文化遗产名录",
+      "建立凤翔泥塑博物馆，实现数字化展示",
+      "开发多系列文创产品，推动产业化发展",
+      "与多所高校合作，建立人才培养基地",
     ],
   },
 ]);
@@ -885,298 +1063,67 @@ const cultureBg = {
 </script>
 
 <style scoped>
-/* 保留所有必要的样式，删除重复的部分 */
-
-/* 基础样式 */
-.history-card {
-  margin-left: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+.timeline {
+  @apply relative;
 }
 
-/* 时间线样式 */
-:deep(.el-timeline-item__node--large) {
-  width: 16px;
-  height: 16px;
-}
-
-:deep(.el-timeline-item__tail) {
-  border-left: 2px solid var(--el-border-color-light);
-}
-
-/* 卡片样式 */
-:deep(.el-card) {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-:deep(.el-card__header) {
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-:deep(.el-card__body) {
-  padding: 16px 20px;
-}
-
-/* 图片相关样式 */
-:deep(.el-image) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f7fa;
-}
-
-:deep(.el-image img) {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  margin: auto;
-}
-
-:deep(.el-image-viewer__wrapper) {
-  z-index: 2000;
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-/* 内容间距 */
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1rem;
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 0.5rem;
-}
-
-/* 文本样式 */
-.prose p {
-  margin-bottom: 1.5em;
-  line-height: 1.8;
-  color: #4b5563;
-}
-
-.prose h4 {
-  margin-bottom: 1rem;
-  color: var(--el-color-primary);
-}
-
-/* 折叠面板样式 */
-:deep(.el-collapse-item__header) {
-  font-size: 14px;
-  color: var(--el-text-color-primary);
-}
-
-/* 响应式样式 */
-@media (max-width: 1024px) {
-  .flex.flex-col.lg\:flex-row {
-    flex-direction: column;
-  }
-
-  .lg\:w-2\/5,
-  .lg\:w-3\/5 {
-    width: 100%;
-  }
-}
-
-/* 轮播图样式优化 */
-:deep(.el-carousel__item) {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-:deep(.el-carousel__item--card) {
-  border: none;
-}
-
-:deep(.el-carousel__item--card.is-active) {
-  transform: translateX(0) scale(1.05);
-  transition: all 0.4s ease;
-}
-
-:deep(.el-carousel__arrow) {
-  background-color: rgba(0, 0, 0, 0.3);
-  border: none;
-  transform: scale(1.2);
-}
-
-:deep(.el-carousel__arrow:hover) {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* 图片容器样式 */
-.el-image {
-  transition: transform 0.3s ease;
-}
-
-.el-carousel__item:hover .el-image {
-  transform: scale(1.05);
-}
-
-/* 图片说明文字渐变显示 */
-.el-carousel__item .absolute {
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  opacity: 0;
-}
-
-.el-carousel__item:hover .absolute {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* 卡片悬浮效果增强 */
-.inheritor-card,
-.timeline-card {
-  transform: translateY(0);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.inheritor-card:hover,
-.timeline-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* 文化底蕴卡片渐变背景 */
-.culture-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.culture-card::before {
+.timeline::before {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    var(--el-color-primary-light-7),
-    var(--el-color-primary-light-9)
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  @apply absolute left-1/2 top-0 bottom-0 w-px bg-primary/20;
+  transform: translateX(-50%);
 }
 
-.culture-card:hover::before {
-  opacity: 0.1;
+.timeline-item {
+  @apply relative z-10 py-8;
 }
 
-/* 标题装饰 */
-.section-title {
-  position: relative;
-  display: inline-block;
+.timeline-item > div {
+  @apply w-full;
 }
 
-.section-title::after {
+/* 时间轴连接点 */
+.timeline-item::after {
   content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--el-color-primary), transparent);
+  @apply absolute w-4 h-4 bg-primary rounded-full z-10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-/* 时间线优化 */
-:deep(.el-timeline-item__node--large) {
-  width: 16px;
-  height: 16px;
-  left: -1px;
-  background: linear-gradient(
-    45deg,
-    var(--el-color-primary),
-    var(--el-color-success)
-  );
+/* 时间轴横线 */
+.timeline-item::before {
+  content: "";
+  @apply absolute h-px bg-primary/20;
+  top: 50%;
+  width: 50px;
+  left: calc(50% - 25px);
 }
 
-:deep(.el-timeline-item__tail) {
-  border-left: 2px solid var(--el-border-color-light);
-  background: linear-gradient(
-      to bottom,
-      var(--el-border-color-light) 50%,
-      transparent 0
-    )
-    repeat-y;
-  background-size: 2px 8px;
-}
-
-/* 步骤条美化 */
-:deep(.el-step__head.is-process) {
-  border-color: var(--el-color-primary);
-  box-shadow: 0 0 0 4px var(--el-color-primary-light-8);
-}
-
-:deep(.el-step__title.is-process) {
-  background: linear-gradient(
-    90deg,
-    var(--el-color-primary),
-    var(--el-color-primary-light-3)
-  );
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/* 图片悬浮效果增强 */
-.image-hover {
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.image-hover img {
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.image-hover:hover img {
-  transform: scale(1.1) rotate(2deg);
-}
-
-/* 渐变分隔线 */
-.gradient-divider {
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--el-color-primary-light-5),
-    transparent
-  );
-  margin: 2rem 0;
-}
-
-/* 文字渐变效果 */
-.gradient-text {
-  background: linear-gradient(
-    45deg,
-    var(--el-color-primary),
-    var(--el-color-success)
-  );
-  -webkit-background-clip: text;
-  color: transparent;
-  font-weight: bold;
-}
-
-/* 卡片内容布局优化 */
-.card-content {
-  padding: 1.5rem;
-  background: linear-gradient(180deg, white, var(--el-color-primary-light-9));
-  border-radius: 0 0 12px 12px;
-}
-
-/* 响应式优化 */
+/* 移动端样式 */
 @media (max-width: 768px) {
-  .inheritor-card:hover,
-  .timeline-card:hover {
-    transform: translateY(-4px);
+  .timeline-item {
+    @apply flex-col gap-6;
   }
 
-  .section-title::after {
-    width: 80%;
-    left: 10%;
+  .timeline-item::after {
+    @apply left-4;
   }
+
+  .timeline-item::before {
+    @apply hidden;
+  }
+
+  .timeline::before {
+    @apply left-4;
+  }
+}
+
+/* 图片悬停效果 */
+.timeline-item .el-image {
+  @apply transition-all duration-500;
+}
+
+.timeline-item:hover .el-image {
+  @apply scale-105;
 }
 </style>

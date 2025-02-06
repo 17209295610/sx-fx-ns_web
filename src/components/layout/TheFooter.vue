@@ -1,12 +1,13 @@
 <template>
+  <!-- 页面底部 -->
   <footer class="bg-gray-900 text-gray-400 py-2">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <!-- 左侧 Logo 和简介 -->
+        <!-- Logo和简介 -->
         <div class="space-y-2">
           <img src="@/assets/images/logo.png" alt="Logo" class="h-10" />
           <p class="text-sm">
-            凤翔泥塑，陕西省非物质文化遗产，千年工艺传承，匠心独运的艺术瑰宝。该网站由咸阳职业技术学院信息工程学院"非泥莫属"团队倾情打造。
+            凤翔泥塑，陕西省非物质文化遗产，千年工艺传承，匠心独运的艺术瑰宝。该网站由咸阳职业技术学院信息工程学院"非泥莫属"团队打造。
           </p>
         </div>
 
@@ -115,8 +116,9 @@
       <!-- 底部版权信息 -->
       <div class="border-t border-gray-800 mt-2 pt-2 text-center text-sm">
         <p>
-          © {{ new Date().getFullYear() }} 咸阳职业技术学院"非泥莫属"团队. All
-          rights reserved.
+          ©
+          {{ new Date().getFullYear() }}
+          咸阳职业技术学院-信息工程学院【非泥莫属】团队. All rights reserved.
         </p>
       </div>
     </div>

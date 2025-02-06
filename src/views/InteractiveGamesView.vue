@@ -2,23 +2,23 @@
   <div
     class="min-h-screen relative bg-gradient-to-b from-gray-800 to-gray-900 text-white overflow-hidden"
   >
-    <!-- 背景装饰 -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div
-        class="absolute w-96 h-96 bg-primary/20 rounded-full blur-3xl -top-48 -left-48 animate-blob"
-      ></div>
-      <div
-        class="absolute w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl -bottom-48 -right-48 animate-blob animation-delay-2000"
-      ></div>
-      <div
-        class="absolute w-96 h-96 bg-red-500/20 rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-blob animation-delay-4000"
-      ></div>
-    </div>
+    <!-- 页面导航 -->
+    <Breadcrumb />
 
-    <!-- 游戏内容 -->
-    <div class="relative">
-      <!-- 游戏标题区优化 -->
-      <div class="container mx-auto px-4 pt-8">
+    <!-- 顶部横幅 -->
+    <div class="relative h-[500px] bg-primary overflow-hidden">
+      <!-- 背景图片 -->
+      <div
+        class="absolute inset-0 bg-cover bg-center opacity-40"
+        :style="{ backgroundImage: `url(${bannerBg})` }"
+      ></div>
+      <!-- 渐变遮罩 -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"
+      ></div>
+      <!-- 内容区域 -->
+      <div class="container mx-auto px-4 h-full flex items-center relative">
+        <!-- 游戏标题区优化 -->
         <div class="text-center space-y-4">
           <h1
             class="text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 bg-clip-text text-transparent animate-gradient"
@@ -30,7 +30,10 @@
           </p>
         </div>
       </div>
+    </div>
 
+    <!-- 游戏内容 -->
+    <div class="relative">
       <!-- 游戏主体区域优化 -->
       <div class="container mx-auto px-4 py-8">
         <div class="max-w-6xl mx-auto">
@@ -327,6 +330,7 @@ import {
   CloseBell,
 } from "@element-plus/icons-vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 // 添加游戏状态类型
 type GameStatus = "未开始" | "进行中" | "已暂停" | "已结束";
@@ -959,6 +963,10 @@ const continueGame = () => {
     startGame();
   }, 100);
 };
+
+// 背景图片导入
+const bannerBg = new URL("@/assets/images/banners/games.jpg", import.meta.url)
+  .href;
 
 onMounted(() => {
   initializeGame();

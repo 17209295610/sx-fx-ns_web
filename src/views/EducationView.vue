@@ -1,5 +1,8 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <!-- 页面导航 -->
+    <Breadcrumb />
+
     <!-- 顶部横条 -->
     <div class="relative h-[500px] bg-primary overflow-hidden">
       <!-- 背景图片 -->
@@ -131,6 +134,21 @@
         </div>
         <p class="text-gray-500 mt-2">敬请期待...</p>
       </div>
+    </div>
+
+    <!-- 知识点展示 -->
+    <div class="knowledge-section py-16 bg-gray-50">
+      <!-- ... -->
+    </div>
+
+    <!-- 互动问答部分 -->
+    <div class="quiz-section py-16">
+      <!-- ... -->
+    </div>
+
+    <!-- 学习资源下载 -->
+    <div class="resources-section py-16 bg-gray-50">
+      <!-- ... -->
     </div>
 
     <TheFooter />

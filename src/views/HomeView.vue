@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-    <!-- 轮播图部分 -->
+    <!-- 顶部轮播图部分 -->
     <div class="relative w-full bg-gray-900">
       <!-- 两侧虚化遮罩 -->
       <div
@@ -58,38 +58,51 @@
           <div class="w-24 h-1 bg-primary mx-auto mt-4"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div
-            v-for="(character, index) in characters"
-            :key="index"
-            class="character-card group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
-          >
-            <!-- 角标装饰 -->
-            <div class="corner-decoration top-left"></div>
-            <div class="corner-decoration top-right"></div>
-            <div class="corner-decoration bottom-left"></div>
-            <div class="corner-decoration bottom-right"></div>
-
+        <div class="max-w-5xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div
-              class="relative w-full h-[350px] bg-gradient-to-b from-gray-50/50"
+              v-for="character in characters.slice(0, 2)"
+              :key="character.name"
+              class="character-card group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
             >
-              <img
-                :src="character.image"
-                :alt="character.name"
-                class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
+              <!-- 角标装饰 -->
+              <div class="corner-decoration top-left"></div>
+              <div class="corner-decoration top-right"></div>
+              <div class="corner-decoration bottom-left"></div>
+              <div class="corner-decoration bottom-right"></div>
 
-            <div class="p-6 border-t border-gray-100">
-              <el-tag size="small" class="mb-3" effect="plain" round>{{
-                character.style
-              }}</el-tag>
-              <h3 class="text-xl font-bold mb-3 text-gray-800">
-                {{ character.name }}
-              </h3>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                {{ character.description }}
-              </p>
+              <div
+                class="relative w-full h-[400px] bg-gradient-to-b from-gray-50/50 to-white/30"
+              >
+                <img
+                  :src="character.image"
+                  :alt="character.name"
+                  class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <div
+                class="p-8 text-center bg-gradient-to-b from-white to-gray-50"
+              >
+                <h3
+                  class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-primary transition-colors"
+                >
+                  {{ character.name }}
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                  {{ character.description }}
+                </p>
+                <div class="mt-6 flex justify-center gap-3">
+                  <el-tag
+                    v-for="tag in character.tags"
+                    :key="tag"
+                    class="px-4 py-1 rounded-full text-sm"
+                    effect="plain"
+                  >
+                    {{ tag }}
+                  </el-tag>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,8 +181,9 @@ import TheFooter from "@/components/layout/TheFooter.vue";
 // 直接导入图片
 import img1 from "../assets/images/Anime_image/祥泥仔1.jpg";
 import img2 from "../assets/images/Anime_image/祥泥仔2.jpg";
-import img3 from "../assets/images/Anime_image/祥泥仔3.jpg";
-import img4 from "../assets/images/Anime_image/祥泥仔4.jpg";
+import tradition from "../assets/images/Anime_image/features/传统制作工艺.jpg";
+import innovation from "../assets/images/Anime_image/features/创新工艺.jpg";
+import experience from "../assets/images/Anime_image/features/文化体验基地.jpg";
 
 // 计算轮播图高度
 const carouselHeight = ref("600px");
@@ -226,31 +240,16 @@ const carouselSlides = ref([
 const characters = ref([
   {
     name: "祥泥宝",
-    description:
-      "通过可爱的造型、传统的服饰、精美的头饰，完美展现凤翔泥塑的艺术特色。",
-    style: "艺术形象",
+    description: "凤翔泥塑的文化传承者，以可爱的造型和传统服饰展现非遗魅力。",
     image: img1,
+    tags: ["文化传承", "传统服饰", "艺术形象"],
   },
   {
     name: "祥泥宝",
     description:
-      "双手高高举起，姿态活泼灵动，继承了凤翔泥塑传统的夸张造型风格，憨态可掬又不失俏皮。",
-    style: "活力形象",
+      "活泼灵动的创新形象，融合传统与现代元素，展现凤翔泥塑的创新活力。",
     image: img2,
-  },
-  {
-    name: "祥泥宝",
-    description:
-      "呈现出圆润可爱的Q版风格，正坐在陶轮前专注创作，展现出对传统工艺的热爱与传承。",
-    style: "创作形象",
-    image: img3,
-  },
-  {
-    name: "祥泥宝",
-    description:
-      "在充满陶艺氛围的工坊中，展现着凤翔泥塑深厚的文化底蕴和艺术传承。",
-    style: "传承形象",
-    image: img4,
+    tags: ["创新设计", "活力形象", "文化创新"],
   },
 ]);
 
@@ -260,18 +259,15 @@ const culturalFeatures = ref([
     title: "千年工艺传承",
     description: "凤翔泥塑技艺历经千年传承，形成了独特的艺术风格和制作工艺。",
     category: "传统技艺",
-    image: new URL("@/assets/images/features/tradition.jpg", import.meta.url)
-      .href,
+    image: tradition,
     tag: "非遗传承",
     tagType: "success",
   },
   {
     title: "创新工艺展示",
-    description:
-      "融合现代设计理念，开发具有时代特色的文创产品，让传统艺术焕发新生。",
+    description: "融合现代设计理念，让传统艺术焕发新生。",
     category: "创新发展",
-    image: new URL("@/assets/images/features/innovation.jpg", import.meta.url)
-      .href,
+    image: innovation,
     tag: "匠心独运",
     tagType: "primary",
   },
@@ -279,8 +275,7 @@ const culturalFeatures = ref([
     title: "文化体验基地",
     description: "设立泥塑文化体验中心，让游客零距离感受非遗魅力。",
     category: "文化传播",
-    image: new URL("@/assets/images/features/experience.jpg", import.meta.url)
-      .href,
+    image: experience,
     tag: "互动体验",
     tagType: "warning",
   },

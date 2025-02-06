@@ -130,6 +130,7 @@ import {
   Platform,
 } from "@element-plus/icons-vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import Breadcrumb from "@/components/layout/Breadcrumb.vue";
 
 // 项目特点
 const features = [

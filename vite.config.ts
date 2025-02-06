@@ -5,7 +5,6 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/fengxiang-nisu/',
   plugins: [
     vue(),
   ],
@@ -15,10 +14,10 @@ export default defineConfig({
     }
   },
   assetsInclude: ['**/*.jpg', '**/*.png', '**/*.svg', '**/*.mp4'],
+  optimizeDeps: {
+    include: ['vue', 'vue-router', '@vueuse/core']
+  },
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    emptyOutDir: true,
-    sourcemap: false
+    assetsInlineLimit: 0
   }
 }) 

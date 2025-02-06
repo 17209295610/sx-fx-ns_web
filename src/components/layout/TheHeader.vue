@@ -5,30 +5,30 @@
 
     <!-- 添加 fixed 定位和背景模糊效果 -->
     <header
-      class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-md transition-all duration-300"
+      class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-lg transition-all duration-300"
     >
       <nav class="container mx-auto px-4 py-2">
         <div class="flex items-center justify-between">
           <!-- 左侧 Logo 和标题区域 -->
-          <div class="flex items-center space-x-6">
+          <div class="flex items-center space-x-4 -ml-6">
             <!-- Logo 放大到 20 -->
             <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg">
               <img
                 src="@/assets/images/logo.png"
                 alt="凤翔泥塑"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover transform hover:scale-105 transition-all duration-300"
               />
             </div>
             <!-- 标题区域 -->
-            <div class="flex flex-col">
+            <div class="flex flex-col -ml-1">
               <h1
-                class="text-2xl font-bold text-primary"
+                class="text-2xl font-bold text-primary whitespace-nowrap"
                 style="font-family: 'STKaiti', 'KaiTi', serif"
               >
-                陕西·宝鸡·凤翔
+                陕西·宝鸡·凤翔泥塑
               </h1>
               <div
-                class="text-base text-gray-600"
+                class="text-base text-gray-600 whitespace-nowrap"
                 style="font-family: 'STSong', 'SimSun', serif"
               >
                 非物质文化遗产传承基地
@@ -36,66 +36,79 @@
             </div>
           </div>
 
-          <!-- 中间导航区域 - 使用 Element Plus 菜单 -->
-          <div class="hidden lg:flex items-center space-x-6">
-            <router-link to="/" class="nav-link">首页</router-link>
+          <!-- 中间导航区域 - 调整样式 -->
+          <div class="hidden lg:flex flex-1 justify-center px-4">
+            <el-menu
+              mode="horizontal"
+              :router="true"
+              class="border-none bg-transparent flex-1 justify-center"
+              :ellipsis="false"
+            >
+              <div class="flex items-center justify-center w-full gap-4">
+                <el-menu-item index="/">
+                  <template #title>
+                    <span class="nav-text px-3">首页</span>
+                  </template>
+                </el-menu-item>
 
-            <!-- 历史文化下拉菜单 -->
-            <el-dropdown trigger="hover" @command="handleCommand">
-              <router-link to="/history" class="nav-link flex items-center">
-                历史文化
-                <el-icon
-                  class="ml-1 text-sm transition-transform group-hover:rotate-180"
-                >
-                  <ArrowDown />
-                </el-icon>
-              </router-link>
-              <template #dropdown>
-                <el-dropdown-menu class="custom-dropdown">
-                  <el-dropdown-item command="/history#origin">
-                    <div class="flex items-center py-1">
-                      <el-icon class="mr-2"><Collection /></el-icon>
-                      <span>泥塑起源</span>
-                    </div>
-                  </el-dropdown-item>
-                  <el-dropdown-item command="/history#development">
-                    <div class="flex items-center py-1">
-                      <el-icon class="mr-2"><Timer /></el-icon>
-                      <span>发展历程</span>
-                    </div>
-                  </el-dropdown-item>
-                  <el-dropdown-item command="/history#culture">
-                    <div class="flex items-center py-1">
-                      <el-icon class="mr-2"><Medal /></el-icon>
-                      <span>文化渊源</span>
-                    </div>
-                  </el-dropdown-item>
-                  <el-dropdown-item command="/history#inheritors">
-                    <div class="flex items-center py-1">
-                      <el-icon class="mr-2"><User /></el-icon>
-                      <span>技艺传承人</span>
-                    </div>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
+                <el-sub-menu index="/history">
+                  <template #title>
+                    <span class="nav-text px-3">历史文化</span>
+                  </template>
+                  <el-menu-item index="/history#origin">
+                    <el-icon><Collection /></el-icon>泥塑起源
+                  </el-menu-item>
+                  <el-menu-item index="/history#development">
+                    <el-icon><Timer /></el-icon>发展历程
+                  </el-menu-item>
+                  <el-menu-item index="/history#culture">
+                    <el-icon><Medal /></el-icon>文化渊源
+                  </el-menu-item>
+                  <el-menu-item index="/history#inheritors">
+                    <el-icon><User /></el-icon>技艺传承人
+                  </el-menu-item>
+                </el-sub-menu>
 
-            <!-- 其他导航链接 -->
-            <router-link to="/crafting" class="nav-link">制作工艺</router-link>
-            <router-link to="/classic-products" class="nav-link"
-              >经典产品</router-link
-            >
-            <router-link to="/cultural-products" class="nav-link"
-              >文创产品</router-link
-            >
-            <router-link to="/education" class="nav-link">科普动画</router-link>
-            <router-link to="/interactive-games" class="nav-link"
-              >互动游戏</router-link
-            >
-            <router-link to="/contact" class="nav-link">关于我们</router-link>
+                <el-menu-item index="/crafting">
+                  <template #title>
+                    <span class="nav-text px-2">制作工艺</span>
+                  </template>
+                </el-menu-item>
+
+                <el-menu-item index="/classic-products">
+                  <template #title>
+                    <span class="nav-text px-2">经典产品</span>
+                  </template>
+                </el-menu-item>
+
+                <el-menu-item index="/cultural-products">
+                  <template #title>
+                    <span class="nav-text px-2">文创产品</span>
+                  </template>
+                </el-menu-item>
+
+                <el-menu-item index="/education">
+                  <template #title>
+                    <span class="nav-text px-2">科普动画</span>
+                  </template>
+                </el-menu-item>
+
+                <el-menu-item index="/interactive-games">
+                  <template #title>
+                    <span class="nav-text px-2">互动游戏</span>
+                  </template>
+                </el-menu-item>
+
+                <el-menu-item index="/contact">
+                  <template #title>
+                    <span class="nav-text px-2">关于我们</span>
+                  </template>
+                </el-menu-item>
+              </div>
+            </el-menu>
           </div>
 
-          <!-- 时间显示部分 -->
+          <!-- 右侧时间显示部分 -->
           <div class="hidden lg:flex items-center">
             <el-card class="time-card" shadow="hover">
               <div class="flex items-center gap-4">
@@ -174,6 +187,8 @@ import {
   ArrowDown,
   Collection,
   Medal,
+  Present,
+  ArrowRight,
   User,
 } from "@element-plus/icons-vue";
 
@@ -505,5 +520,60 @@ html {
   100% {
     transform: scale(1);
   }
+}
+
+/* 导航菜单样式 */
+:deep(.el-menu) {
+  @apply flex items-center justify-center;
+  border-bottom: none !important;
+}
+
+:deep(.el-menu-item),
+:deep(.el-sub-menu__title) {
+  @apply h-16 leading-[64px] px-3;
+  font-size: 1.125rem;
+}
+
+/* 导航文字样式 */
+.nav-text {
+  @apply font-medium transition-colors duration-300 whitespace-nowrap;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 1.125rem;
+}
+
+/* 激活状态 */
+:deep(.el-menu-item.is-active) {
+  @apply text-primary font-medium;
+  border-bottom: 2px solid var(--el-color-primary);
+  transform: translateY(-1px);
+}
+
+/* 悬停效果 */
+:deep(.el-menu-item:hover),
+:deep(.el-sub-menu__title:hover) {
+  @apply bg-primary/5;
+  border-bottom: 2px solid var(--el-color-primary-light-3);
+  transform: translateY(-1px);
+}
+
+/* 下拉菜单样式 */
+:deep(.el-menu--popup) {
+  @apply rounded-lg shadow-lg border-none bg-white/95 backdrop-blur-md mt-2;
+  min-width: 140px;
+}
+
+:deep(.el-menu--popup .el-menu-item) {
+  @apply h-10 leading-[40px] px-4 text-sm;
+}
+
+/* 移除默认边框 */
+:deep(.el-menu--horizontal > .el-menu-item.is-active),
+:deep(.el-menu--horizontal > .el-sub-menu.is-active .el-sub-menu__title) {
+  border-bottom: 2px solid var(--el-color-primary);
+}
+
+/* 菜单项间距 */
+:deep(.el-menu > div) {
+  @apply flex items-center justify-center gap-2;
 }
 </style>

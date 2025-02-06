@@ -173,6 +173,7 @@ import {
 import type { ImageViewerProps } from "element-plus";
 import { ElImageViewer } from "element-plus";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import { Breadcrumb } from "@/components/common";
 
 // 导入图片
 const zodiacImages = import.meta.glob("@/assets/images/经典产品/*.jpg", {
