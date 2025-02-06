@@ -23,6 +23,7 @@ export default defineConfig({
     assetsDir: 'assets',
     assetsInlineLimit: 4096,
     sourcemap: true,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks: {

@@ -319,7 +319,7 @@ import {
   Timer,
   Star,
 } from "@element-plus/icons-vue";
-import Breadcrumb from "@/components/layout/Breadcrumb.vue";
+import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 // 添加banner背景图片
 const bannerBg = new URL(

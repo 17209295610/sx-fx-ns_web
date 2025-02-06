@@ -135,7 +135,7 @@ import {
   Promotion,
   Platform,
 } from "@element-plus/icons-vue";
-import Breadcrumb from "@/components/layout/Breadcrumb.vue";
+import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 // 项目特点
 const features = [
