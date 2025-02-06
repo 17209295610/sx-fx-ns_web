@@ -14,7 +14,7 @@
             <!-- Logo 放大到 20 -->
             <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg">
               <img
-                src="@/assets/images/logo.png"
+                src="../../assets/images/logo.png"
                 alt="凤翔泥塑"
                 class="w-full h-full object-cover transform hover:scale-105 transition-all duration-300"
               />

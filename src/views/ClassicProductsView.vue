@@ -172,7 +172,7 @@ import { ElImageViewer } from "element-plus";
 import { Breadcrumb } from "@/components/common";
 
 // 导入图片
-const zodiacImages = import.meta.glob("@/assets/images/经典产品/*.jpg", {
+const zodiacImages = import.meta.glob("../assets/images/经典产品/*.jpg", {
   eager: true,
 });
 
@@ -303,7 +303,7 @@ const currentProducts = computed(() => {
 
 // 添加banner背景图片
 const bannerBg = new URL(
-  "@/assets/images/banners/classic-products.jpg",
+  "../assets/images/banners/classic-products.jpg",
   import.meta.url
 ).href;
 

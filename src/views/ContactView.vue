@@ -176,6 +176,6 @@ const contacts = [
 ];
 
 // 添加banner背景图片
-const bannerBg = new URL("@/assets/images/banners/about.jpg", import.meta.url)
+const bannerBg = new URL("../assets/images/banners/about.jpg", import.meta.url)
   .href;
 </script>

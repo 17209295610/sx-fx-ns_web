@@ -767,8 +767,10 @@ const bannerBg = new URL(
   "../assets/images/history/banner-bg.jpg",
   import.meta.url
 ).href;
-const originImg = new URL("@/assets/images/history/origin.jpg", import.meta.url)
-  .href;
+const originImg = new URL(
+  "../assets/images/history/origin.jpg",
+  import.meta.url
+).href;
 
 const inheritors = ref([
   {
@@ -815,10 +817,10 @@ const inheritors = ref([
 ]);
 
 // 导入图片
-import xianqin from "@/assets/images/Historical_photo/xianqin.jpg";
-import mingqing from "@/assets/images/Historical_photo/mingqing.jpg";
-import ershi from "@/assets/images/Historical_photo/20.jpg";
-import xiandai from "@/assets/images/Historical_photo/xiandai.jpg";
+import xianqin from "../assets/images/Historical_photo/xianqin.jpg";
+import mingqing from "../assets/images/Historical_photo/mingqing.jpg";
+import ershi from "../assets/images/Historical_photo/20.jpg";
+import xiandai from "../assets/images/Historical_photo/xiandai.jpg";
 
 const developmentStages = ref<DevelopmentStage[]>([
   {

@@ -357,26 +357,26 @@ const combo = ref(0);
 const maxCombo = ref(0);
 
 // 导入图片
-import img1 from "@/assets/images/游戏图片/1.jpg";
-import img2 from "@/assets/images/游戏图片/2.jpg";
-import img3 from "@/assets/images/游戏图片/3.jpg";
-import img4 from "@/assets/images/游戏图片/4.jpg";
-import img5 from "@/assets/images/游戏图片/5.jpg";
-import img6 from "@/assets/images/游戏图片/6.jpg";
-import img7 from "@/assets/images/游戏图片/7.jpg";
-import img8 from "@/assets/images/游戏图片/8.jpg";
-import img9 from "@/assets/images/游戏图片/9.jpg";
-import img10 from "@/assets/images/游戏图片/10.jpg";
-import img11 from "@/assets/images/游戏图片/11.jpg";
-import img12 from "@/assets/images/游戏图片/12.jpg";
+import img1 from "../assets/images/游戏图片/1.jpg";
+import img2 from "../assets/images/游戏图片/2.jpg";
+import img3 from "../assets/images/游戏图片/3.jpg";
+import img4 from "../assets/images/游戏图片/4.jpg";
+import img5 from "../assets/images/游戏图片/5.jpg";
+import img6 from "../assets/images/游戏图片/6.jpg";
+import img7 from "../assets/images/游戏图片/7.jpg";
+import img8 from "../assets/images/游戏图片/8.jpg";
+import img9 from "../assets/images/游戏图片/9.jpg";
+import img10 from "../assets/images/游戏图片/10.jpg";
+import img11 from "../assets/images/游戏图片/11.jpg";
+import img12 from "../assets/images/游戏图片/12.jpg";
 
 // 在导入区域添加音效导入
-import successSound from "@/assets/images/游戏图片/音效/胜利音乐.mp3";
-import failureSound from "@/assets/images/游戏图片/音效/失败音.mp3";
-import matchSound from "@/assets/images/游戏图片/音效/消除音和连击音效.mp3";
+import successSound from "../assets/images/游戏图片/音效/胜利音乐.mp3";
+import failureSound from "../assets/images/游戏图片/音效/失败音.mp3";
+import matchSound from "../assets/images/游戏图片/音效/消除音和连击音效.mp3";
 
 // 在导入区域添加背景音乐
-import bgMusic from "@/assets/images/游戏图片/音效/徐梦圆 - CHINA-韵.mp3";
+import bgMusic from "../assets/images/游戏图片/音效/徐梦圆 - CHINA-韵.mp3";
 
 // 修改生肖图片映射
 const zodiacImages = {

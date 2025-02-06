@@ -159,21 +159,21 @@ import { VideoPlay, Film, ArrowDown } from "@element-plus/icons-vue";
 
 // 添加banner背景图片
 const bannerBg = new URL(
-  "@/assets/images/banners/education.jpg",
+  "../assets/images/banners/education.jpg",
   import.meta.url
 ).href;
 
 // 导入视频资源
-import storyVideo from "@/assets/Video/凤翔泥塑的故事.mp4";
-import charmVideo from "@/assets/Video/凤翔泥塑的魅力.mp4";
+import storyVideo from "../assets/Video/凤翔泥塑的故事.mp4";
+import charmVideo from "../assets/Video/凤翔泥塑的魅力.mp4";
 
 // 视频封面图
 const storyPoster = new URL(
-  "@/assets/images/video-covers/story-poster.jpg",
+  "../assets/images/video-covers/story-poster.jpg",
   import.meta.url
 ).href;
 const charmPoster = new URL(
-  "@/assets/images/video-covers/charm-poster.jpg",
+  "../assets/images/video-covers/charm-poster.jpg",
   import.meta.url
 ).href;
 </script>
