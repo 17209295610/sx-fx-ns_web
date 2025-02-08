@@ -8,12 +8,14 @@ import App from './App.vue'
 import { setupPlugins } from './plugins'
 import { validateEnv } from './utils/env'
 import './utils/errorBoundary'
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
 
 // 导入样式 - 调整顺序，先导入 Tailwind，再导入 Element Plus
 import '@/assets/main.css'
 import 'element-plus/dist/index.css'
+
+// 强制响应式系统优先加载
+import '@vue/reactivity'
+import '@vue/runtime-core'
 
 // 验证环境变量
 validateEnv()

@@ -2,11 +2,13 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    visualizer()
   ],
   resolve: {
     alias: {
@@ -15,9 +17,13 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.jpg', '**/*.png', '**/*.svg', '**/*.mp4'],
   optimizeDeps: {
-    include: ['vue', 'vue-router', '@vueuse/core']
+    include: [
+      '@vue/reactivity',
+      '@vue/runtime-core',
+      'element-plus/es/components'
+    ]
   },
-  base: process.env.NODE_ENV === 'production' ? '/' : '/',
+  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -26,10 +32,12 @@ export default defineConfig({
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'element-plus': ['element-plus'],
-          'vue-vendor': ['vue', 'vue-router', 'pinia']
-        }
+        manualChunks(id) {
+          if (id.includes('@vue')) return 'vue-core'
+          if (id.includes('element-plus')) return 'element-plus'
+          if (id.includes('node_modules')) return 'vendor'
+        },
+        experimentalMinChunkSize: 300000
       }
     }
   }
