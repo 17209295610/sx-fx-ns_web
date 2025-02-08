@@ -24,9 +24,12 @@ export default defineConfig({
     ]
   },
   base: './',
+  envDir: './',
+  envPrefix: 'VITE_',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    emptyOutDir: true,
     assetsInlineLimit: 4096,
     sourcemap: true,
     chunkSizeWarningLimit: 1500,

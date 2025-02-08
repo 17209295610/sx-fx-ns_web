@@ -12,8 +12,9 @@ export function validateEnv() {
   ]
 
   requiredEnvVars.forEach(key => {
+    console.log(`Checking env: ${key} = ${import.meta.env[key]}`)
     if (!import.meta.env[key]) {
-      handleError(new Error(`Missing required environment variable: ${key}`))
+      handleError(new Error(`缺少必需环境变量: ${key}`))
     }
   })
 } 
