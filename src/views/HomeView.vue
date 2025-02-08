@@ -20,7 +20,10 @@
           <div
             class="relative h-full w-full flex items-center justify-center overflow-hidden"
           >
-            <!-- 背景模糊效果 -->
+            <div
+              v-if="!imageLoaded[index]"
+              class="absolute inset-0 bg-gray-100 animate-pulse"
+            ></div>
             <div
               class="absolute inset-0 bg-cover bg-center blur-md opacity-30"
               :style="{ backgroundImage: `url(${slide.image})` }"
@@ -31,7 +34,8 @@
               <img
                 :src="slide.image"
                 :alt="slide.title"
-                class="h-full w-auto object-contain"
+                class="h-full w-auto object-cover"
+                @load="handleImageLoad(index)"
               />
             </div>
 
@@ -188,15 +192,19 @@ const carouselHeight = ref("600px");
 
 // 根据窗口大小调整轮播图高度
 const updateCarouselHeight = () => {
-  const windowHeight = window.innerHeight;
-  const minHeight = 500; // 最小高度
-  const maxHeight = 800; // 最大高度
-  const headerHeight = 100; // 导航栏高度
-
-  // 计算合适的高度
+  const isMobile = window.innerWidth < 1024;
+  const headerHeight = isMobile ? 60 : 100;
   const height = Math.min(
-    Math.max(windowHeight - headerHeight, minHeight),
-    maxHeight
+    window.innerHeight - headerHeight,
+    isMobile ? window.innerHeight * 0.6 : 800
+  );
+  console.log(
+    "当前计算高度:",
+    height,
+    "窗口高度:",
+    window.innerHeight,
+    "移动端:",
+    isMobile
   );
   carouselHeight.value = `${height}px`;
 };
@@ -278,6 +286,11 @@ const culturalFeatures = ref([
     tagType: "warning",
   },
 ]);
+
+const imageLoaded = ref([]);
+const handleImageLoad = (index) => {
+  imageLoaded.value[index] = true;
+};
 </script>
 
 <style scoped>
@@ -317,9 +330,9 @@ const culturalFeatures = ref([
 
 /* 确保图片保持原始比例 */
 .el-carousel__item img {
+  object-fit: cover;
+  width: 100%;
   height: 100%;
-  width: auto;
-  max-width: none;
   transition: transform 0.6s ease;
 }
 
@@ -468,5 +481,32 @@ const culturalFeatures = ref([
 .el-button.is-text:hover {
   background: transparent;
   color: var(--el-color-primary-light-3);
+}
+
+/* 移动端文字缩小 */
+@media (max-width: 640px) {
+  .el-carousel__item .text-content {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .el-carousel__item h2 {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .el-carousel__item p {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
+
+/* 添加移动端横屏适配 */
+@media (max-width: 640px) and (orientation: landscape) {
+  .el-carousel__item img {
+    object-position: center 30%;
+  }
 }
 </style>

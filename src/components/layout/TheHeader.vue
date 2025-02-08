@@ -175,6 +175,113 @@
         </transition>
       </nav>
     </header>
+
+    <!-- 桌面端导航栏 -->
+    <div
+      class="hidden lg:block fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md shadow-lg"
+    >
+      <header>
+        <nav class="container mx-auto px-4 py-2">
+          <div class="flex items-center justify-between">
+            <!-- 左侧Logo和标题区域 -->
+            <div class="flex items-center space-x-4 -ml-6">
+              <!-- Logo 放大到 20 -->
+              <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg">
+                <img
+                  src="../../assets/images/logo.png"
+                  alt="凤翔泥塑"
+                  class="w-full h-full object-cover transform hover:scale-105 transition-all duration-300"
+                />
+              </div>
+              <!-- 标题区域 -->
+              <div class="flex flex-col -ml-1">
+                <h1
+                  class="text-2xl font-bold text-primary whitespace-nowrap"
+                  style="font-family: 'STKaiti', 'KaiTi', serif"
+                >
+                  陕西·宝鸡·凤翔泥塑
+                </h1>
+                <div
+                  class="text-base text-gray-600 whitespace-nowrap"
+                  style="font-family: 'STSong', 'SimSun', serif"
+                >
+                  非物质文化遗产传承基地
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </div>
+
+    <!-- 移动端导航栏 -->
+    <div
+      class="lg:hidden fixed top-0 w-full z-40 bg-white/90 backdrop-blur-md shadow-lg"
+      style="height: 60px"
+    >
+      <div
+        class="container mx-auto px-4 py-2 flex items-center justify-between"
+      >
+        <!-- 汉堡菜单 -->
+        <el-button
+          @click="isMobileMenuVisible = !isMobileMenuVisible"
+          class="!p-2"
+          text
+        >
+          <el-icon :size="24">
+            <Menu />
+          </el-icon>
+        </el-button>
+
+        <!-- 移动端Logo -->
+        <div class="w-12 h-12 rounded-full overflow-hidden">
+          <img
+            src="@/assets/images/logo.png"
+            alt="凤翔泥塑"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- 移动端下拉菜单 -->
+      <transition name="el-zoom-in-top">
+        <div
+          v-show="isMobileMenuVisible"
+          class="absolute w-full bg-white shadow-lg"
+        >
+          <el-menu
+            :default-active="$route.path"
+            :router="true"
+            class="border-none"
+          >
+            <el-menu-item index="/">
+              <el-icon><HomeFilled /></el-icon>
+              <span>首页</span>
+            </el-menu-item>
+
+            <el-sub-menu index="/history">
+              <template #title>
+                <el-icon><Collection /></el-icon>
+                <span>历史文化</span>
+              </template>
+              <el-menu-item index="/history#origin">泥塑起源</el-menu-item>
+              <el-menu-item index="/history#development">发展历程</el-menu-item>
+              <el-menu-item index="/history#culture">文化渊源</el-menu-item>
+              <el-menu-item index="/history#inheritors"
+                >技艺传承人</el-menu-item
+              >
+            </el-sub-menu>
+
+            <el-menu-item index="/crafting">制作工艺</el-menu-item>
+            <el-menu-item index="/classic-products">经典产品</el-menu-item>
+            <el-menu-item index="/cultural-products">文创产品</el-menu-item>
+            <el-menu-item index="/education">科普动画</el-menu-item>
+            <el-menu-item index="/interactive-games">互动游戏</el-menu-item>
+            <el-menu-item index="/contact">关于我们</el-menu-item>
+          </el-menu>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -190,7 +297,9 @@ import {
   Present,
   ArrowRight,
   User,
+  HomeFilled,
 } from "@element-plus/icons-vue";
+import { useMediaQuery } from "@vueuse/core";
 
 const route = useRoute();
 const router = useRouter();
@@ -355,6 +464,19 @@ onUnmounted(() => {
 const handleCommand = (command: string) => {
   router.push(command);
 };
+
+const isMobile = useMediaQuery("(max-width: 1024px)");
+const isMobileMenuVisible = ref(false);
+
+// 路由变化时自动关闭菜单
+watch(
+  () => route.path,
+  () => {
+    if (isMobile.value) {
+      isMobileMenuVisible.value = false;
+    }
+  }
+);
 </script>
 
 <style scoped>
@@ -575,5 +697,59 @@ html {
 /* 菜单项间距 */
 :deep(.el-menu > div) {
   @apply flex items-center justify-center gap-2;
+}
+
+/* 移动端专属样式 */
+@media (max-width: 1024px) {
+  :deep(.el-menu) {
+    --el-menu-item-height: 48px;
+  }
+
+  :deep(.el-sub-menu__title),
+  :deep(.el-menu-item) {
+    @apply px-4;
+    font-size: 1rem;
+  }
+
+  :deep(.el-icon) {
+    margin-right: 12px;
+    font-size: 1.2rem;
+  }
+}
+
+/* 动画优化 */
+.el-zoom-in-top-enter-active,
+.el-zoom-in-top-leave-active {
+  transition: all 0.3s cubic-bezier(0.3, 1.3, 0.3, 1);
+}
+
+.el-zoom-in-top-enter-from,
+.el-zoom-in-top-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* 优化移动端菜单 */
+@media (max-width: 1024px) {
+  :deep(.el-menu--vertical) {
+    --el-menu-item-height: 3rem;
+  }
+
+  :deep(.el-sub-menu__title) {
+    padding-left: 1.5rem !important;
+  }
+
+  /* 时间显示优化 */
+  .time-card {
+    transform: scale(0.9);
+    margin-right: -0.5rem;
+  }
+}
+
+/* 桌面端LOGO优化 */
+@media (min-width: 1024px) {
+  .logo-container {
+    min-width: 12rem;
+  }
 }
 </style>

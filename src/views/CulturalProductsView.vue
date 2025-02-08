@@ -78,12 +78,12 @@
 
       <!-- 产品展示网格 -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
       >
         <div
           v-for="product in currentProducts"
           :key="product.id"
-          class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+          class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2 mx-2 sm:mx-0"
         >
           <!-- 图片容器 -->
           <div class="relative overflow-hidden aspect-[4/3]">

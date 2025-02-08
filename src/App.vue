@@ -1,26 +1,21 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <el-config-provider :locale="zhCn">
     <TheHeader />
-
-    <main class="flex-grow">
-      <div class="app-container">
-        <router-view v-slot="{ Component }">
-          <transition name="fade" mode="out-in">
-            <component :is="Component" />
-          </transition>
-        </router-view>
-      </div>
-    </main>
-
+    <RouterView class="min-h-screen" />
     <TheFooter />
     <BackToTop />
-  </div>
+    <MobileTabBar />
+  </el-config-provider>
 </template>
 
 <script setup lang="ts">
+import { RouterView } from "vue-router";
+import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 import TheHeader from "@/components/layout/TheHeader.vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
-import { BackToTop } from "@/components/common";
+import BackToTop from "@/components/common/BackToTop.vue";
+import MobileTabBar from "@/components/layout/MobileTabBar.vue";
 </script>
 
 <style>
@@ -57,5 +52,31 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-primary);
+}
+
+/* 增加响应式断点 */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 100px;
+  }
+}
+
+/* 优化基础布局 */
+.main-content {
+  padding-top: var(--header-height);
+}
+
+/* 统一字体响应式 */
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
 }
 </style>
