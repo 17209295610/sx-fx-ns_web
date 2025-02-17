@@ -156,7 +156,6 @@
                   {{ feature.tag }}
                 </el-tag>
                 <el-button type="primary" text class="flex items-center">
-                  了解更多
                   <el-icon
                     class="ml-1 group-hover:translate-x-1 transition-transform"
                   >
